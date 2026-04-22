@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Project 1 - Results</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 750px; margin: 60px auto; }
+        h1, h2 { color: #3a5a8a; }
+        .info-box {
+            background: #f0f4f9;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        img { max-width: 100%; border: 1px solid #ccc; border-radius: 8px; }
+        label { display: block; margin-top: 15px; font-weight: bold; }
+        select, input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            margin-top: 20px;
+            background-color: #3a5a8a;
+            color: white;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+        a { display: inline-block; margin-top: 20px; color: #3a5a8a; }
+    </style>
+</head>
+<body>
+    <h1>Dataset Overview</h1>
+
+
+    <div class="info-box">
+        <p><strong>Total Samples:</strong> {{ n_samples }}</p>
+        <p><strong>Problem Type:</strong> {{ problem_type }}</p>
+        <p><strong>Target Label:</strong> {{ label }}</p>
+        <p><strong>Features:</strong> {{ features|join:", " }}</p>
+    </div>
+
+
+    <h2>Visualization</h2>
+    <img src="data:image/png;base64,{{ plot }}">
+
+
+    <h2>Train a Model</h2>
+    <form method="post" action="{% url 'project1:train' %}">
+        {% csrf_token %}
+
+
+        <label>Choose Model:</label>
+        <select name="model_name">
+            {% if problem_type == 'classification' %}
+                <option value="knn">K-Nearest Neighbors (KNN)</option>
+                <option value="tree">Decision Tree</option>
+                <option value="svm">SVM</option>
+            {% else %}
+                <option value="linear">Linear Regression</option>
+                <option value="tree">Decision Tree Regressor</option>
+            {% endif %}
+        </select>
+
+
+        <label>Training Split (% of data used for training):</label>
+        <input type="number" name="split" value="80" min="50" max="95">
+
+
+        <label>Hyperparameter (k for KNN / max_depth for Tree):</label>
+        <input type="number" name="hyperparam" value="5" min="1" max="20">
+
+
+        <button type="submit">Train Model</button>
+    </form>
+
+
+    <br>
+    <a href="{% url 'project1:index' %}">← Upload a different file</a>
+</body>
+</html>
+
+
+
+

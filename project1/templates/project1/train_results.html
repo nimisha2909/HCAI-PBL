@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Project 1 - Training Results</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 750px; margin: 60px auto; }
+        h1, h2 { color: #3a5a8a; }
+        .score-box {
+            background: #e8f5e9;
+            border-left: 5px solid #4caf50;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        .info-box {
+            background: #f0f4f9;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        img { max-width: 100%; border: 1px solid #ccc; border-radius: 8px; }
+        a {
+            display: inline-block;
+            margin-top: 15px;
+            margin-right: 15px;
+            color: #3a5a8a;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Training Results</h1>
+
+
+    <div class="info-box">
+        <p><strong>Model:</strong> {{ model_name }}</p>
+        <p><strong>Training samples:</strong> {{ train_size }}</p>
+        <p><strong>Test samples:</strong> {{ test_size }}</p>
+    </div>
+
+
+    <div class="score-box">
+        {{ score_name }}: <strong>{{ score }}{% if problem_type == 'classification' %}%{% endif %}</strong>
+    </div>
+
+
+    <h2>Actual vs Predicted</h2>
+    <img src="data:image/png;base64,{{ pred_plot }}">
+
+
+    <br>
+    <a href="{% url 'project1:index' %}">← Upload new file</a>
+    <a href="javascript:history.back()">← Try different model</a>
+</body>
+</html>
+
+
+
+

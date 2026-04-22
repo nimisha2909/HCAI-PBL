@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Project 1 - ML Interface</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 700px; margin: 60px auto; }
+        h1 { color: #3a5a8a; }
+        input[type="file"] { margin: 10px 0; }
+        button {
+            background-color: #3a5a8a;
+            color: white;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Project 1: Supervised Learning Interface</h1>
+    <p>Upload a CSV file. The last column must be the label/target.</p>
+
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+
+    <form method="post" enctype="multipart/form-data" action="{% url 'project1:upload' %}">
+        {% csrf_token %}
+        <input type="file" name="csv_file" accept=".csv" required><br><br>
+        <button type="submit">Upload & Visualize</button>
+    </form>
+
+
+    <br>
+    <a href="/home/">← Back to Home</a>
+</body>
+</html>
+
+
+
+
