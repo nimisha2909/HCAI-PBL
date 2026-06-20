@@ -78,7 +78,8 @@ def upload(request):
 
 def train(request):
     if request.method == 'POST':
-        df = pd.read_json(request.session.get('dataset'))
+        import io
+        df = pd.read_json(io.StringIO(request.session.get('dataset')))
         problem_type = request.session.get('problem_type', 'classification')
 
 
